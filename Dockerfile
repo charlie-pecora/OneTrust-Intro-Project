@@ -3,7 +3,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /tmp/requirements.txt
 
-RUN useradd -ms fastapi
+RUN useradd -ms /bin/bash fastapi
 
 USER fastapi
 WORKDIR /home/fastapi

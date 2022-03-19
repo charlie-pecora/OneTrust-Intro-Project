@@ -1,6 +1,6 @@
 import re
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel, validator
 
 from . import database
@@ -46,6 +46,6 @@ class TagInput(BaseModel):
         else: raise ValueError("Count value must be an positive integer less than 10.")
 
 
-@app.put("/tags", status_code=204)
+@app.put("/tags", status_code=204, response_class=Response)
 async def add_tag_count(tag_input: TagInput):
     database.db.increment_tag_total_count(tag_input.name, tag_input.value)
