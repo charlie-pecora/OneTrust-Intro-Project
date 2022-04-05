@@ -4,7 +4,9 @@ from pydantic import BaseSettings
 
 
 class AppSettings(BaseSettings):
-    database_config: Optional[str] = None
+    db_type: str = "test"
+    db_collection = "test_tags"
+    google_project_id: str = "charlie-intro-project"
 
     class Config:
         env_nested_delimiter = "__"
