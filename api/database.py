@@ -90,7 +90,7 @@ def get_db() -> AbstractDB:
     if app_settings.db_type == "test":
         return InMemoryDB()
     else:
-        return FirestoreDB(project_id=app_settings.project_id)
+        return FirestoreDB(project_id=app_settings.google_project_id)
 
 
 db = get_db()

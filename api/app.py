@@ -13,7 +13,7 @@ app = FastAPI(
     version="0.1.0",
     openapi_tags=[
         {"name": "health"},
-        {"name": "tags", "description": "Endpionts for keeping track of tag counts."},
+        {"name": "tags", "description": "Keep track of tag counts."},
     ],
 )
 
