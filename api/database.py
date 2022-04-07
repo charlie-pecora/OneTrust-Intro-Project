@@ -39,6 +39,9 @@ class InMemoryDB(AbstractDB):
             yield Tag(name, data["total_count"])
 
     async def set_tag_data(self, tag_data: dict):
+        """
+        Should only be used for testing to initially populate database
+        """
         self.tags = deepcopy(tag_data)
 
     async def increment_tag_total_count(self, name: str, count: int):
@@ -76,6 +79,9 @@ class FirestoreDB(AbstractDB):
         await transaction.commit()
 
     async def set_tag_data(self, tag_data: dict):
+        """
+        Should only be used for testing to initially populate database
+        """
         collection = self._db.collection(self.db_collection)
         async for document in collection.list_documents():
             await document.delete()
