@@ -68,3 +68,12 @@ bottleneck.
 collection and return all of the results to users. Both pagination (for instance, only return 100 tag 
 counts per request) and caching could improve the read performance of the API. If there were latency 
 issues with read queries, then analysis would be necessary to determine the bottleneck.
+
+## Logging
+Stackdriver structured logs were implemented. This includes a log each time the 
+write endpoint is used to increment a tag count. The log-based metric was then created to extract the 
+tag name and value from each request. While these metrics can be aggregated, I found the google 
+metrics explorer tool unintuitive (I could not figure out how to do a simple sum of extracted values 
+aggregated by the tag label) and did not complete the visualization piece of the logging metric. 
+In order to visualize this data, I would probably use a python or javascript visualization library 
+to query the metric data and create a dashboard.
