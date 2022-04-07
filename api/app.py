@@ -1,10 +1,10 @@
-import re
+import logging
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Request
 
 from . import database
 from .models import TagInput, TagStats
-from .logger import logger
+from .config import app_settings
 
 
 app = FastAPI(
@@ -32,5 +32,18 @@ async def get_tag_stats():
 
 
 @app.put("/tags", tags=["tags"], status_code=204, response_class=Response)
-async def add_tag_count(tag_input: TagInput):
+async def add_tag_count(request: Request, tag_input: TagInput):
     await database.db.increment_tag_total_count(tag_input.name, tag_input.value)
+    logging.info(
+        "tag write event",
+        extra={
+            "logging.googleapis.com/trace": get_logging_trace(request),
+            "severity": "NOTICE",
+            "data": {"tagInput": tag_input.dict()},
+        },
+    )
+
+
+def get_logging_trace(request):
+    trace = request.headers.get("X-Cloud-Trace-Context", "").split("/")[0]
+    return f"projects/{app_settings.google_project_id}/traces/{trace}"

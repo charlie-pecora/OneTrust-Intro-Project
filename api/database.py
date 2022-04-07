@@ -2,9 +2,9 @@ import abc
 from collections import namedtuple
 from copy import deepcopy
 from typing import Generator
+import logging
 
 from .config import app_settings
-from .logger import logger
 
 import firebase_admin
 from firebase_admin import firestore, credentials
@@ -55,7 +55,7 @@ class FirestoreDB(AbstractDB):
                 credentials.ApplicationDefault(), {"projectId": project_id}
             )
         except ValueError:
-            logger.debug("Firebase already initialized... skipping")
+            logging.debug("Firebase already initialized... skipping")
         self._db = firestore.AsyncClient()
         self.db_collection = app_settings.db_collection
 

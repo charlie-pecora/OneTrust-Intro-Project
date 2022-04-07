@@ -1,3 +1,4 @@
 fastapi
-uvicorn
 firebase-admin
+uvicorn
+python-json-logger
