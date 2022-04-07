@@ -1,0 +1,4 @@
+fastapi
+firebase-admin
+uvicorn
+python-json-logger
